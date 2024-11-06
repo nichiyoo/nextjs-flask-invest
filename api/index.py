@@ -4,6 +4,11 @@ import pandas as pd
 import pickle as pkl
 from flask import Flask 
 from flask import json, request
+
+# import minmaxscaler and knn scikit learn
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.neighbors import KNeighborsClassifier
+
 warnings.filterwarnings("ignore")
 
 app = Flask(__name__)
