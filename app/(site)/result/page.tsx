@@ -25,7 +25,7 @@ export default function Page() {
 
 		const valid = output && resultSchema.safeParse(output).success;
 		if (valid) setResult(output);
-		setValid(valid);
+		setValid(!!valid);
 	}, []);
 
 	if (valid === false) {
