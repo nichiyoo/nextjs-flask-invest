@@ -1,67 +1,21 @@
 import * as z from 'zod';
-
-import { scale } from './constant';
+import { scale } from '@/lib/constant';
 
 export const formSchema = z.object({
-	gender: z.enum(['male', 'female'], {
-		required_error: 'Jenis Kelamin harus dipilih',
-	}),
-
-	age: z.coerce
-		.number({
-			required_error: 'Usia harus diisi dengan angka',
-		})
-		.min(0, 'Usia harus lebih dari 0'),
-
-	monthlyIncome: z.coerce
-		.number({
-			required_error: 'Penghasilan harus diisi dengan angka dalam satuan Rp.',
-		})
-		.min(0, 'Penghasilan harus lebih dari 0'),
-
-	economicCondition: z.enum(scale, {
-		required_error: 'Kondisi Ekonomi harus dipilih',
-	}),
-
-	incomeForInvestment: z.enum(scale, {
-		required_error: 'Penghasilan Cukup untuk Berinvestasi harus dipilih',
-	}),
-
-	longTermGoal: z.enum(scale, {
-		required_error: 'Tujuan jangka panjang harus dipilih',
-	}),
-
-	additionalIncome: z.enum(scale, {
-		required_error: 'Penghasilan Tambahan harus dipilih',
-	}),
-
-	wealthIncrease: z.enum(scale, {
-		required_error: 'Meningkatkan Kekayaan harus dipilih',
-	}),
-
-	financialLiteracy: z.enum(scale, {
-		required_error: 'Literasi Keuangan harus dipilih',
-	}),
-
-	platformEaseOfUse: z.enum(scale, {
-		required_error: 'Kemudahan penggunaan platform harus dipilih',
-	}),
-
-	offeredProfit: z.enum(scale, {
-		required_error: 'Keuntungan yang ditawarkan harus dipilih',
-	}),
-
-	risk: z.enum(scale, {
-		required_error: 'Risiko yang ditanggung harus dipilih',
-	}),
-
-	investmentKnowledge: z.enum(['yes', 'maybe', 'no'], {
-		required_error: 'Pengetahuan investasi harus dipilih',
-	}),
-
-	currentlyInvesting: z.enum(['yes', 'no'], {
-		required_error: 'Status investasi saat ini harus dipilih',
-	}),
+	usia: z.coerce.number().min(15),
+	jenis_kelamin: z.enum(['male', 'female']),
+	uang_bulanan: z.coerce.number().min(100000),
+	ekonomi_mendukung: z.enum(scale),
+	penghasilan_cukup: z.enum(scale),
+	tujuan_jangka_panjang: z.enum(scale),
+	penghasilan_tambahan: z.enum(scale),
+	meningkatkan_kekayaan: z.enum(scale),
+	literasi_keuangan: z.enum(scale),
+	kemudahan_platform: z.enum(scale),
+	keuntungan: z.enum(scale),
+	risiko: z.enum(scale),
+	tahu_investasi: z.enum(['yes', 'maybe', 'no']),
+	sudah_investasi: z.enum(['yes', 'no']),
 });
 
 export const resultSchema = z.object({

@@ -1,17 +1,19 @@
 import * as React from 'react';
 
 import Footer from '@/components/footer';
-import Navbar from '@/components/navbar';
+import Navbar from '@/components/navbar/navbar';
 
 interface LayoutProps extends React.PropsWithChildren {
 	//
 }
 
-export default async function Layout({ children }: LayoutProps): Promise<React.JSX.Element> {
+export default async function Layout({
+	children,
+}: LayoutProps): Promise<React.JSX.Element> {
 	return (
-		<div className='container max-w-5xl'>
+		<div className='container max-w-6xl'>
 			<Navbar />
-			<main className='py-20 min-h-screen'>{children}</main>
+			<main className='py-20 min-h-content'>{children}</main>
 			<Footer />
 		</div>
 	);

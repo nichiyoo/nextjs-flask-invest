@@ -1,16 +1,17 @@
 'use client';
 
 import * as React from 'react';
-
-import { FlaskConical, NotepadText } from 'lucide-react';
-import { ResultValues, resultSchema } from '@/lib/schema';
-
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { FlaskConical, NotepadText } from 'lucide-react';
+
+import { useToast } from '@/hooks/use-toast';
+import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatInvestmentOutput } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
-import { useToast } from '@/hooks/use-toast';
+import { ResultValues, resultSchema } from '@/lib/schema';
+import { ButtonGroup } from '@/components/group';
+import { Header, HeaderDescription, HeaderTitle } from '@/components/header';
 
 export default function Page() {
 	const router = useRouter();
@@ -31,20 +32,24 @@ export default function Page() {
 	if (valid === false) {
 		toast({
 			title: 'Error Melihat Hasil',
-			description: 'Kamu belum melakukan prediksi minat berinvestasi di pasar modal',
+			description: 'Kamu belum melakukan prediksi minat berinvestasi',
 		});
+
 		router.push('/prediction');
 	}
 
 	if (!result)
 		return (
-			<div className='min-h-[50vh] flex flex-col justify-center items-center text-center'>
-				<Skeleton className='h-12 w-2/3 mb-4' />
-				<Skeleton className='h-4 w-full mb-2' />
-				<Skeleton className='h-4 w-full mb-2' />
-				<Skeleton className='h-4 w-full mb-2' />
-				<Skeleton className='h-4 w-full mb-2' />
-				<Skeleton className='h-4 w-1/2 mb-4' />
+			<div className='py-32 grid gap-6'>
+				<Skeleton className='h-12 w-2/3' />
+
+				<div className='grid gap-2'>
+					<Skeleton className='h-4 w-full' />
+					<Skeleton className='h-4 w-full' />
+					<Skeleton className='h-4 w-full' />
+					<Skeleton className='h-4 w-full' />
+					<Skeleton className='h-4 w-1/2' />
+				</div>
 
 				<div className='flex items-center gap-2'>
 					<Skeleton className='w-40 h-10' />
@@ -54,26 +59,27 @@ export default function Page() {
 		);
 
 	return (
-		<div className='min-h-[50vh] flex flex-col justify-center text-center'>
-			<h1 className='text-5xl font-bold font-serif text-balance mb-2 motion-preset-slide-up'>{result.output}</h1>
-			<p className='text-muted-foreground mb-4 motion-preset-slide-up motion-delay-100'>
-				{formatInvestmentOutput(result)}
-			</p>
+		<div className='grid gap-8'>
+			<Header className='py-32'>
+				<HeaderTitle>{result.output}</HeaderTitle>
+				<HeaderDescription>{formatInvestmentOutput(result)}</HeaderDescription>
 
-			<div className='flex justify-center items-center gap-2 motion-preset-slide-up motion-delay-200'>
-				<Link href='/prediction' legacyBehavior>
-					<Button>
-						<FlaskConical className='size-5' />
-						<span>Ulangi Prediksi</span>
-					</Button>
-				</Link>
-				<Link href='/about'>
-					<Button variant='secondary'>
-						<NotepadText className='size-5' />
-						<span>Baca Publikasi</span>
-					</Button>
-				</Link>
-			</div>
+				<ButtonGroup>
+					<Link href='/prediction' legacyBehavior>
+						<Button>
+							<FlaskConical className='size-5' />
+							<span>Ulangi Prediksi</span>
+						</Button>
+					</Link>
+
+					<Link href='/about'>
+						<Button variant='secondary'>
+							<NotepadText className='size-5' />
+							<span>Baca Publikasi</span>
+						</Button>
+					</Link>
+				</ButtonGroup>
+			</Header>
 		</div>
 	);
 }

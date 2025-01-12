@@ -19,7 +19,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
 	title: 'Sistem Prediksi Minat Investasi',
-	description: 'Prediksi Minat Mahasiswa Dalam Berinvestasi di Pasar Modal Menggunakan Machine Learning',
+	description:
+		'Prediksi Minat Mahasiswa Dalam Berinvestasi di Pasar Modal Menggunakan Machine Learning',
 };
 
 export default function RootLayout({
@@ -29,8 +30,17 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en' suppressHydrationWarning>
-			<body className={cn(bricolage.variable, inter.variable, 'font-sans antialiased')}>
-				<ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+			<body
+				className={cn(
+					bricolage.variable,
+					inter.variable,
+					'font-sans antialiased'
+				)}>
+				<ThemeProvider
+					attribute='class'
+					defaultTheme='system'
+					enableSystem
+					disableTransitionOnChange>
 					{children}
 					<Toaster />
 				</ThemeProvider>

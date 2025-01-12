@@ -1,7 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { ResultValues } from './schema';
-import { agreements, importances, supports } from './constant';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -18,51 +17,79 @@ export const formatCurrency = (number: number) => {
 	return formatter.format(number);
 };
 
-export const getLabel = (value: string, options: typeof supports | typeof importances | typeof agreements) => {
-	const option = options.find((option) => option.value === value);
-	return option ? option.label : '';
-};
-
 export function formatInvestmentOutput(data: ResultValues) {
 	const {
-		additionalIncome,
-		age,
-		currentlyInvesting,
-		economicCondition,
-		financialLiteracy,
-		gender,
-		incomeForInvestment,
-		investmentKnowledge,
-		longTermGoal,
-		monthlyIncome,
-		offeredProfit,
-		platformEaseOfUse,
-		risk,
-		wealthIncrease,
+		usia,
+		jenis_kelamin,
+		uang_bulanan,
+		ekonomi_mendukung,
+		penghasilan_cukup,
+		tujuan_jangka_panjang,
+		penghasilan_tambahan,
+		meningkatkan_kekayaan,
+		literasi_keuangan,
+		kemudahan_platform,
+		keuntungan,
+		risiko,
+		tahu_investasi,
+		sudah_investasi,
 	} = data.input;
 
-	const genderText = gender === 'male' ? 'Laki-laki' : 'Perempuan';
-	const investmentStatus = currentlyInvesting === 'yes' ? 'sudah berinvestasi' : 'belum berinvestasi';
-	const knowledgeText =
-		investmentKnowledge === 'yes'
-			? 'mengetahui'
-			: investmentKnowledge === 'maybe'
-			? 'mungkin mengetahui'
-			: 'tidak mengetahui';
+	const mapper = {
+		genders: {
+			male: 'Laki-laki',
+			female: 'Perempuan',
+		},
+		sudah_investasi: {
+			yes: 'sudah berinvestasi',
+			no: 'belum berinvestasi',
+		},
+		tahu_investasi: {
+			yes: 'mengetahui',
+			maybe: 'mungkin mengetahui',
+			no: 'tidak mengetahui',
+		},
+		supports: {
+			1: 'Sangat Tidak Mendukung',
+			2: 'Tidak Mendukung',
+			3: 'Biasa Saja',
+			4: 'Mendukung',
+			5: 'Sangat Mendukung',
+		},
+		importances: {
+			1: 'Sangat Tidak Penting',
+			2: 'Tidak Penting',
+			3: 'Biasa Saja',
+			4: 'Penting',
+			5: 'Sangat Penting',
+		},
+		agreements: {
+			1: 'Sangat Tidak Setuju',
+			2: 'Tidak Setuju',
+			3: 'Biasa Saja',
+			4: 'Setuju',
+			5: 'Sangat Setuju',
+		},
+	};
+
+	const genders = mapper['genders'];
+	const supports = mapper['supports'];
+	const importances = mapper['importances'];
+	const agreements = mapper['agreements'];
 
 	return [
-		`Anda adalah seorang ${genderText} yang`,
-		`berusia ${age} tahun,`,
-		`dengan pendapatan bulanan sebesar ${formatCurrency(monthlyIncome)}.`,
-		`Anda ${knowledgeText} apa itu investasi, dan saat ini ${investmentStatus}.`,
-		`Kondisi ekonomi Anda dianggap ${getLabel(economicCondition, supports)},`,
-		`dan penghasilan Anda dianggap ${getLabel(incomeForInvestment, supports)} untuk berinvestasi.`,
-		`Tujuan investasi Anda meliputi mencapai tujuan finansial jangka panjang (${getLabel(longTermGoal, importances)}),`,
-		`mendapatkan penghasilan tambahan (${getLabel(additionalIncome, importances)}),`,
-		`dan meningkatkan kekayaan (${getLabel(wealthIncrease, importances)}).`,
-		`Faktor yang mempengaruhi keputusan Anda meliputi literasi keuangan (${getLabel(financialLiteracy, agreements)}),`,
-		`kemudahan platform (${getLabel(platformEaseOfUse, agreements)}),`,
-		`keuntungan yang ditawarkan (${getLabel(offeredProfit, agreements)}),`,
-		`serta risiko yang ditanggung (${getLabel(risk, agreements)}).`,
+		`Anda adalah seorang ${genders[jenis_kelamin]} yang`,
+		`berusia ${usia} tahun,`,
+		`dengan pendapatan bulanan sebesar ${formatCurrency(uang_bulanan)}.`,
+		`Anda ${mapper['tahu_investasi'][tahu_investasi]} apa itu investasi, dan saat ini ${mapper['sudah_investasi'][sudah_investasi]}.`,
+		`Kondisi ekonomi Anda dianggap ${supports[ekonomi_mendukung]},`,
+		`dan penghasilan Anda dianggap ${supports[penghasilan_cukup]} untuk berinvestasi.`,
+		`Tujuan investasi Anda meliputi mencapai tujuan finansial jangka panjang (${importances[tujuan_jangka_panjang]}),`,
+		`mendapatkan penghasilan tambahan (${importances[penghasilan_tambahan]}),`,
+		`dan meningkatkan kekayaan (${importances[meningkatkan_kekayaan]}).`,
+		`Faktor yang mempengaruhi keputusan Anda meliputi literasi keuangan (${agreements[literasi_keuangan]}),`,
+		`kemudahan platform (${agreements[kemudahan_platform]}),`,
+		`keuntungan yang ditawarkan (${agreements[keuntungan]}),`,
+		`serta risiko yang ditanggung (${agreements[risiko]}).`,
 	].join(' ');
 }
