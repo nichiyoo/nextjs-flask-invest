@@ -25,7 +25,7 @@ export const Submenu: React.FC<SubmenuProps> = ({ submenu }) => {
 						href={item.href}
 						target={item.target}
 						className='flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'>
-						<Icon className='size-5 shrink-0' />
+						<Icon className='shrink-0' />
 						<div>
 							<div className='text-sm font-semibold'>{item.title}</div>
 							<p className='text-sm leading-snug text-muted-foreground'>

@@ -32,14 +32,14 @@ export default function RootLayout({
 		<html lang='en' suppressHydrationWarning>
 			<body
 				className={cn(
-					bricolage.variable,
 					inter.variable,
+					bricolage.variable,
 					'font-sans antialiased'
 				)}>
 				<ThemeProvider
+					enableSystem
 					attribute='class'
 					defaultTheme='system'
-					enableSystem
 					disableTransitionOnChange>
 					{children}
 					<Toaster />

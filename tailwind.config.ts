@@ -1,9 +1,9 @@
+// @ts-nocheck
 import type { Config } from 'tailwindcss';
 import animate from 'tailwindcss-animate';
 import { fontFamily } from 'tailwindcss/defaultTheme';
-// @ts-expect-error no types yet for tailwindcss-motion
-import motion from 'tailwindcss-motion';
 import typography from '@tailwindcss/typography';
+import motion from 'tailwindcss-motion';
 
 const config: Config = {
 	darkMode: ['class'],

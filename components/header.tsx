@@ -22,7 +22,7 @@ const HeaderTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<h1
 		ref={ref}
-		className={cn('text-6xl font-extrabold font-serif', className)}
+		className={cn('text-4xl lg:text-6xl font-extrabold font-serif', className)}
 		{...props}
 	/>
 ));

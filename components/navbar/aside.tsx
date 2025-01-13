@@ -51,7 +51,10 @@ export const Aside: React.FC<AsideProps> = () => {
 						{menus.map((menu) => {
 							if (menu.submenu) {
 								return (
-									<Accordion collapsible type='single' key={menu.title}>
+									<Accordion
+										type='multiple'
+										key={menu.title}
+										defaultValue={[menu.title]}>
 										<AccordionItem value={menu.title} className='border-b-0'>
 											<AccordionTrigger className='py-0 hover:no-underline'>
 												{menu.title}

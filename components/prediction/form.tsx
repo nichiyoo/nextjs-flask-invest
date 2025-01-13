@@ -83,7 +83,6 @@ const PredictionForm: React.FC = () => {
 	const onSubmit = async (data: FormValues) => {
 		try {
 			setLoading(true);
-
 			const response = await fetch('/api/predict', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },

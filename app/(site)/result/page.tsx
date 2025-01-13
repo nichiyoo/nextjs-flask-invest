@@ -38,7 +38,7 @@ export default function Page() {
 		router.push('/prediction');
 	}
 
-	if (!result)
+	if (!result) {
 		return (
 			<div className='py-32 grid gap-6'>
 				<Skeleton className='h-12 w-2/3' />
@@ -57,6 +57,7 @@ export default function Page() {
 				</div>
 			</div>
 		);
+	}
 
 	return (
 		<div className='grid gap-8'>
@@ -67,14 +68,14 @@ export default function Page() {
 				<ButtonGroup>
 					<Link href='/prediction' legacyBehavior>
 						<Button>
-							<FlaskConical className='size-5' />
+							<FlaskConical />
 							<span>Ulangi Prediksi</span>
 						</Button>
 					</Link>
 
 					<Link href='/about'>
 						<Button variant='secondary'>
-							<NotepadText className='size-5' />
+							<NotepadText />
 							<span>Baca Publikasi</span>
 						</Button>
 					</Link>
