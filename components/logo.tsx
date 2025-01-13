@@ -7,7 +7,7 @@ interface LogoProps {
 	//
 }
 
-const Logo: React.FC<LogoProps> = () => {
+export const Logo: React.FC<LogoProps> = () => {
 	return (
 		<Link href='/' className='flex items-center gap-2 font-bold'>
 			<Image src='/logo.png' alt='logo' width={36} height={36} />
@@ -15,5 +15,3 @@ const Logo: React.FC<LogoProps> = () => {
 		</Link>
 	);
 };
-
-export default Logo;

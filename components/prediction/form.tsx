@@ -25,7 +25,7 @@ import {
 import { Loader2 } from 'lucide-react';
 import { ButtonGroup } from '@/components/group';
 
-const PredictionForm: React.FC = () => {
+export const PredictionForm: React.FC = () => {
 	const { toast } = useToast();
 	const router = useRouter();
 	const [loading, setLoading] = React.useState(false);
@@ -170,5 +170,3 @@ const PredictionForm: React.FC = () => {
 		</Form>
 	);
 };
-
-export default PredictionForm;

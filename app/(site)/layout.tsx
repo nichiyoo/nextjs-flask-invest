@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import Footer from '@/components/footer';
-import Navbar from '@/components/navbar/navbar';
+import { Footer } from '@/components/footer';
+import { Navbar } from '@/components/navbar/navbar';
 
 interface LayoutProps extends React.PropsWithChildren {
 	//

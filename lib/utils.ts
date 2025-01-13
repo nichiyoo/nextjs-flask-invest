@@ -93,3 +93,13 @@ export function formatInvestmentOutput(data: ResultValues) {
 		`serta risiko yang ditanggung (${agreements[risiko]}).`,
 	].join(' ');
 }
+
+export function formatInitial(raw: string) {
+	const word = raw.toUpperCase();
+	const splits = word.split(' ');
+
+	return splits
+		.slice(0, 2)
+		.map((word) => word.substring(0, 1))
+		.join('');
+}

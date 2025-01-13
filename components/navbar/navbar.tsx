@@ -1,6 +1,7 @@
 import Link from 'next/link';
+import * as React from 'react';
 
-import Logo from '@/components/logo';
+import { Logo } from '@/components/logo';
 import { ThemeToggle } from '@/components/theme-toggle';
 
 import {
@@ -12,11 +13,12 @@ import {
 } from '@/components/ui/navigation-menu';
 
 import { menus } from '@/lib/constant';
+import { Button } from '@/components/ui/button';
 import { Aside } from '@/components/navbar/aside';
 import { Submenu } from '@/components/navbar/submenu';
-import { Button } from '../ui/button';
+import { AuthButton } from '@/components/auth/auth-button';
 
-const Navbar = () => {
+export const Navbar = () => {
 	return (
 		<div className='py-6'>
 			<nav className='hidden justify-between lg:flex items-center'>
@@ -46,7 +48,12 @@ const Navbar = () => {
 								</NavigationMenuItem>
 							);
 						})}
+
 						<ThemeToggle />
+
+						<React.Suspense fallback={<div>Loading...</div>}>
+							<AuthButton />
+						</React.Suspense>
 					</NavigationMenuList>
 				</NavigationMenu>
 			</nav>
@@ -54,5 +61,3 @@ const Navbar = () => {
 		</div>
 	);
 };
-
-export default Navbar;
