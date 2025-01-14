@@ -14,11 +14,14 @@ import {
 
 import { menus } from '@/lib/constant';
 import { Button } from '@/components/ui/button';
-import { Aside } from '@/components/navbar/aside';
-import { Submenu } from '@/components/navbar/submenu';
+import { Aside } from '@/components/landing/landing-aside';
+import { Submenu } from '@/components/landing/landing-submenu';
 import { AuthButton } from '@/components/auth/auth-button';
+import { getCurrentSession } from '@/lib/session';
 
-export const Navbar = () => {
+export const Navbar = async () => {
+	const { user } = await getCurrentSession();
+
 	return (
 		<div className='py-6'>
 			<nav className='hidden justify-between lg:flex items-center'>
@@ -49,11 +52,16 @@ export const Navbar = () => {
 							);
 						})}
 
-						<ThemeToggle />
+						{user && user.role === 'admin' && (
+							<NavigationMenuItem>
+								<Link href='/dashboard'>
+									<Button variant='ghost'>Dashboard</Button>
+								</Link>
+							</NavigationMenuItem>
+						)}
 
-						<React.Suspense fallback={<div>Loading...</div>}>
-							<AuthButton />
-						</React.Suspense>
+						<ThemeToggle />
+						<AuthButton />
 					</NavigationMenuList>
 				</NavigationMenu>
 			</nav>

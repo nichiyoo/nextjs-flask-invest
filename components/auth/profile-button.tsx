@@ -4,7 +4,6 @@ import * as React from 'react';
 import { formatInitial } from '@/lib/utils';
 import { signout } from '@/actions/auth';
 import { useToast } from '@/hooks/use-toast';
-import { Button } from '@/components/ui/button';
 import { User } from '@/database/schema';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
@@ -15,7 +14,6 @@ import {
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
-	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
@@ -38,35 +36,32 @@ export const ProfileButton: React.FC<SignoutButtonProps> = ({ user }) => {
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<Button variant='ghost' className='relative h-8 w-8 rounded-full'>
-					<Avatar>
-						<AvatarFallback>{formatInitial(user.nama)}</AvatarFallback>
-					</Avatar>
-				</Button>
+			<DropdownMenuTrigger className='flex items-center gap-2'>
+				<Avatar>
+					<AvatarFallback className='bg-primary text-black'>{formatInitial(user.nama)}</AvatarFallback>
+				</Avatar>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='w-56' align='end' forceMount>
-				<DropdownMenuLabel className='font-normal'>
-					<div className='flex flex-col space-y-1'>
-						<p className='text-sm font-medium leading-none'>{user.nama}</p>
-						<p className='text-xs leading-none text-muted-foreground'>
-							{user.email}
-						</p>
+				<DropdownMenuLabel>
+					<div className='flex flex-col gap-1'>
+						<span className='text-sm font-medium'>{user.nama}</span>
+						<span className='text-xs text-muted-foreground truncate'>{user.email}</span>
 					</div>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-
+				<DropdownMenuGroup>
+					<Link href='/'>
+						<DropdownMenuItem>Home</DropdownMenuItem>
+					</Link>
+				</DropdownMenuGroup>
 				{user.role === 'admin' && (
-					<React.Fragment>
-						<DropdownMenuGroup>
-							<Link href='/dashboard'>
-								<DropdownMenuItem>Dashboard</DropdownMenuItem>
-							</Link>
-						</DropdownMenuGroup>
-						<DropdownMenuSeparator />
-					</React.Fragment>
+					<DropdownMenuGroup>
+						<Link href='/dashboard'>
+							<DropdownMenuItem>Dashboard</DropdownMenuItem>
+						</Link>
+					</DropdownMenuGroup>
 				)}
-
+				<DropdownMenuSeparator />
 				<DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

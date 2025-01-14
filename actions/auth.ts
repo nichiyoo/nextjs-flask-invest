@@ -15,7 +15,6 @@ import { createSession } from '@/lib/session';
 import { setSessionTokenCookie } from '@/lib/cookies';
 import { hashPassword, verifyPassword } from '@/lib/hash';
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
 
 export async function signin({
 	email,

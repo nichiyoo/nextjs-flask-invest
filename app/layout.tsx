@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
+import { ConfirmProvider } from '@/context/confirm-context';
 
 const bricolage = Bricolage_Grotesque({
 	subsets: ['latin'],

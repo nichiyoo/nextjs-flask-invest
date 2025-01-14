@@ -22,7 +22,7 @@ import {
 } from '@/components/ui/sheet';
 
 import { menus } from '@/lib/constant';
-import { Submenu } from '@/components/navbar/submenu';
+import { Submenu } from '@/components/landing/landing-submenu';
 
 interface AsideProps {
 	//

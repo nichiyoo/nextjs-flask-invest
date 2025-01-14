@@ -2,7 +2,7 @@ import * as React from 'react';
 import { redirect } from 'next/navigation';
 
 import { Footer } from '@/components/footer';
-import { Navbar } from '@/components/navbar/navbar';
+import { Navbar } from '@/components/landing/landing-navbar';
 import { getCurrentSession } from '@/lib/session';
 
 export default async function Layout({

@@ -4,7 +4,6 @@ import pandas as pd
 import pickle as pkl
 from flask import Flask 
 from flask import json, request
-
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.neighbors import KNeighborsClassifier
 warnings.filterwarnings("ignore")
@@ -71,17 +70,18 @@ def predict():
     
     pred = model.predict(df)
     index = pred[0]
+
     prediction = {
-        0: "Anda tidak berminat untuk berinvestasi",
-        1: "Anda mungkin berminat untuk berinvestasi",
-        2: "Anda berminat untuk berinvestasi",
+        0: "no",
+        1: "yes",
+        2: "maybe",
     }
 
     response = app.response_class(
         status=200,
         response=json.dumps({
             "input": data,
-            "output": prediction[index],
+            "result": prediction[index],
         }),
         mimetype='application/json'
     )

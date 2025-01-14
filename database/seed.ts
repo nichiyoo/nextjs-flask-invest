@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { reset } from 'drizzle-seed';
+import { reset, seed } from 'drizzle-seed';
 import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
 import * as schema from '@/database/schema';
@@ -65,6 +65,22 @@ async function main() {
 			role: 'admin',
 		},
 	];
+
+	const hashed = await hashPassword('password');
+
+	await seed(db, { user: schema.user }).refine((fake) => {
+		return {
+			user: {
+				columns: {
+					nama: fake.fullName(),
+					jurusan_id: fake.int({ minValue: 1, maxValue: jurusanData.length }),
+					role: fake.default({ defaultValue: 'user' }),
+					password: fake.default({ defaultValue: hashed }),
+				},
+				count: 30,
+			},
+		};
+	});
 
 	await db.insert(schema.user).values(userData);
 	console.log('Seeding completed successfully');

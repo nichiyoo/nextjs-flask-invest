@@ -1,5 +1,18 @@
 import { Menu } from '@/lib/type';
-import { Book, Brain, Code, TrendingUp, User, Users } from 'lucide-react';
+import {
+	Book,
+	Brain,
+	Building2,
+	ChartBarBig,
+	Code,
+	FlaskConical,
+	GraduationCap,
+	Layout,
+	TrendingUp,
+	User,
+	Users,
+	Users2,
+} from 'lucide-react';
 
 export const scale = ['1', '2', '3', '4', '5'] as const;
 
@@ -187,6 +200,57 @@ export const menus: Array<Menu> = [
 				href: 'https://github.com',
 				target: '_blank',
 				rel: 'noopener noreferrer',
+			},
+		],
+	},
+];
+
+export const side: Array<Menu> = [
+	{
+		href: '#',
+		title: 'Dashboard',
+		submenu: [
+			{
+				icon: ChartBarBig,
+				title: 'Statistik',
+				href: '/dashboard/statistics',
+				description: 'Statistik data prediksi minat investasi mahasiswa',
+			},
+			{
+				icon: Layout,
+				title: 'Menu Overview',
+				href: '/dashboard',
+				description: 'Navigasi menu yang tersedia pada dashboard.',
+			},
+			{
+				icon: FlaskConical,
+				title: 'Data Prediksi',
+				href: '/dashboard/predictions',
+				description: 'Kelola data prediksi minat investasi mahasiswa',
+			},
+		],
+	},
+	{
+		href: '#',
+		title: 'Data Perguruan Tinggi',
+		submenu: [
+			{
+				icon: Building2,
+				title: 'Data Fakultas',
+				href: '/dashboard/faculty',
+				description: 'Kelola data fakultas yang bergabung dengan sistem',
+			},
+			{
+				icon: GraduationCap,
+				title: 'Data Jurusan',
+				href: '/dashboard/major',
+				description: 'Kelola data jurusan yang bergabung dengan sistem',
+			},
+			{
+				icon: Users2,
+				title: 'Data Pengguna',
+				href: '/dashboard/users',
+				description: 'Kelola data pengguna yang bergabung dengan sistem',
 			},
 		],
 	},

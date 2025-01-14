@@ -1,0 +1,1 @@
+ALTER TABLE `prediksi` ADD `tertarik_investasi` text NOT NULL;

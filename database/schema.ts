@@ -36,7 +36,7 @@ export const prediksi = sqliteTable('prediksi', {
 	user_id: integer('user_id')
 		.notNull()
 		.unique()
-		.references(() => user.user_id),
+		.references(() => user.user_id, { onDelete: 'cascade' }),
 	usia: integer('usia').notNull(),
 	jenis_kelamin: text('jenis_kelamin', { enum: ['male', 'female'] }).notNull(),
 	uang_bulanan: integer('uang_bulanan').notNull(),
@@ -57,6 +57,9 @@ export const prediksi = sqliteTable('prediksi', {
 		enum: ['yes', 'maybe', 'no'],
 	}).notNull(),
 	sudah_investasi: text('sudah_investasi', { enum: ['yes', 'no'] }).notNull(),
+	tertarik_investasi: text('tertarik_investasi', {
+		enum: ['yes', 'maybe', 'no'],
+	}).notNull(),
 });
 
 export const session = sqliteTable('session', {
@@ -85,7 +88,10 @@ export const jurusanRelation = relations(jurusan, (relation) => {
 
 export const userRelation = relations(user, (relation) => {
 	return {
-		listJurusan: relation.many(jurusan),
+		jurusan: relation.one(jurusan, {
+			fields: [user.jurusan_id],
+			references: [jurusan.jurusan_id],
+		}),
 	};
 });
 

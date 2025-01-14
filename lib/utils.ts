@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { ResultValues } from './schema';
+import { Prediksi } from '@/database/schema';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -17,7 +17,7 @@ export const formatCurrency = (number: number) => {
 	return formatter.format(number);
 };
 
-export function formatInvestmentOutput(data: ResultValues) {
+export function formatInvestmentOutput(data: Prediksi) {
 	const {
 		usia,
 		jenis_kelamin,
@@ -33,7 +33,7 @@ export function formatInvestmentOutput(data: ResultValues) {
 		risiko,
 		tahu_investasi,
 		sudah_investasi,
-	} = data.input;
+	} = data;
 
 	const mapper = {
 		genders: {
@@ -102,4 +102,20 @@ export function formatInitial(raw: string) {
 		.slice(0, 2)
 		.map((word) => word.substring(0, 1))
 		.join('');
+}
+export function formatTitle(raw: string) {
+	const replaced = raw.replaceAll('_', ' ');
+	const splits = replaced.split(' ');
+
+	return splits
+		.map((word) => word.substring(0, 1).toUpperCase() + word.substring(1))
+		.join(' ');
+}
+
+export function formatDate(date: Date) {
+	return date.toLocaleDateString('en-US', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+	});
 }

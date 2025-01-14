@@ -1,13 +1,13 @@
 'use client';
 
 import * as React from 'react';
+import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useToast } from '@/hooks/use-toast';
 import { sections } from '@/lib/constant';
+import { useToast } from '@/hooks/use-toast';
 import { FormValues, formSchema } from '@/lib/schema';
 
 import { Input } from '@/components/ui/input';
@@ -22,12 +22,11 @@ import {
 	FormLabel,
 	FormMessage,
 } from '@/components/ui/form';
-import { Loader2 } from 'lucide-react';
 import { ButtonGroup } from '@/components/group';
+import { predict } from '@/actions/prediction';
 
 export const PredictionForm: React.FC = () => {
 	const { toast } = useToast();
-	const router = useRouter();
 	const [loading, setLoading] = React.useState(false);
 
 	const form = useForm<FormValues>({
@@ -72,7 +71,6 @@ export const PredictionForm: React.FC = () => {
 	const handleReset = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		form.reset();
-
 		toast({
 			title: 'Form sudah di reset',
 			description:
@@ -83,25 +81,15 @@ export const PredictionForm: React.FC = () => {
 	const onSubmit = async (data: FormValues) => {
 		try {
 			setLoading(true);
-			const response = await fetch('/api/predict', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(data),
-			});
-
+			await predict(data);
 			toast({
 				title: 'Berhasil',
 				description: 'Prediksi minat berinvestasi  sudah dikirimkan',
 			});
-
-			const result = await response.json();
-			localStorage.setItem('result', JSON.stringify(result));
-			router.push('/result');
-		} catch (error) {
-			console.error(error);
+		} catch (error: any) {
 			toast({
 				title: 'Error',
-				description: 'Terjadi kesalahan saat mengirim formulir',
+				description: error.message,
 			});
 		} finally {
 			setLoading(false);

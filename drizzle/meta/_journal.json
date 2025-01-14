@@ -8,6 +8,20 @@
       "when": 1736799620225,
       "tag": "0000_initial_migration",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1736807062235,
+      "tag": "0001_add_field_tertarik_investasi_in_table_prediksi",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1736814532297,
+      "tag": "0002_add_cascading_in_relationship",
+      "breakpoints": true
     }
   ]
 }
