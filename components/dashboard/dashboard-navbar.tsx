@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { ThemeToggle } from '@/components/theme-toggle';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { AuthButton } from '@/components/auth/auth-button';
@@ -16,7 +15,6 @@ export default function DashboardNavbar(): React.JSX.Element {
 					<DashboardBreadcrumb />
 				</div>
 				<div className='flex items-center gap-4'>
-					<ThemeToggle />
 					<AuthButton />
 				</div>
 			</div>

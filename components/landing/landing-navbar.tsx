@@ -1,8 +1,6 @@
 import Link from 'next/link';
-import * as React from 'react';
 
 import { Logo } from '@/components/logo';
-import { ThemeToggle } from '@/components/theme-toggle';
 
 import {
 	NavigationMenu,
@@ -60,7 +58,6 @@ export const Navbar = async () => {
 							</NavigationMenuItem>
 						)}
 
-						<ThemeToggle />
 						<AuthButton />
 					</NavigationMenuList>
 				</NavigationMenu>
