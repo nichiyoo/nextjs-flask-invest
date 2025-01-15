@@ -52,7 +52,7 @@ export default async function Page() {
 							untuk berinvestasi di pasar modal Reksa Dana
 						</HeaderSubtitle>
 						<div className='max-w-none prose dark:prose-invert text-muted-foreground'>
-							{description['yes']}
+							{description[result.tertarik_investasi]}
 						</div>
 					</Header>
 				</CardContent>
