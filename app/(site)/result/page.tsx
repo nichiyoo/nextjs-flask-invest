@@ -9,19 +9,16 @@ import { formatInvestmentOutput } from '@/lib/utils';
 import { Header, HeaderSubtitle } from '@/components/header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { getDocumentArray } from '@/lib/markdown';
 
 export default async function Page() {
 	const { user } = await getCurrentSession();
 	if (!user) return redirect('/auth/login');
 
-	const temp = await db.query.prediksi.findFirst({
+	const docs = await getDocumentArray();
+	const result = await db.query.prediksi.findFirst({
 		where: eq(schema.prediksi.user_id, user.user_id),
 	});
-
-	const result = {
-		...temp,
-		tertarik_investasi: 'yes',
-	} as schema.Prediksi;
 
 	if (!result) return redirect('/prediction');
 
@@ -62,23 +59,23 @@ export default async function Page() {
 			</Card>
 
 			{result.tertarik_investasi === 'yes' && (
-				<Tabs defaultValue='account' className='grid gap-6'>
+				<Tabs defaultValue='reksadana-pasar-uang' className='grid gap-6'>
 					<CustomTab>
-						<CustomTrigger value='account'>Reksa Dana Pasar Uang</CustomTrigger>
-						<CustomTrigger value='password'>
-							Reksa Dana Pendapatan Tetap
-						</CustomTrigger>
-						<CustomTrigger value='password'>Reksa Dana Campuran</CustomTrigger>
-						<CustomTrigger value='password'>Reksa Dana Saham</CustomTrigger>
+						{docs.map((item) => (
+							<CustomTrigger key={item.value} value={item.value}>
+								{item.label}
+							</CustomTrigger>
+						))}
 					</CustomTab>
 
-					<CustomContent value='account' title='Pentingnya Investasi'>
-						Pentingnya Investasi
-					</CustomContent>
-
-					<CustomContent value='password' title='Pentingnya Investasi'>
-						Pentingnya Investasi
-					</CustomContent>
+					{docs.map((item) => (
+						<CustomContent
+							key={item.value}
+							value={item.value}
+							title={item.label}>
+							<div dangerouslySetInnerHTML={{ __html: item.description }} />
+						</CustomContent>
+					))}
 				</Tabs>
 			)}
 		</div>
@@ -116,7 +113,7 @@ const CustomContent: React.FC<
 					<CardTitle>{title}</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<div className='max-w-none prose dark:prose-invert text-muted-foreground'>
+					<div className='max-w-none prose dark:prose-invert text-muted-foreground prose-headings:font-serif'>
 						{children}
 					</div>
 				</CardContent>
