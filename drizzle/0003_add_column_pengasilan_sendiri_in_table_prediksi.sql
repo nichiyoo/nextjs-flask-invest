@@ -1,0 +1,1 @@
+ALTER TABLE `prediksi` ADD `penghasilan_sendiri` text NOT NULL;

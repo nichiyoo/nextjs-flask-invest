@@ -57,6 +57,9 @@ export const prediksi = sqliteTable('prediksi', {
 		enum: ['yes', 'maybe', 'no'],
 	}).notNull(),
 	sudah_investasi: text('sudah_investasi', { enum: ['yes', 'no'] }).notNull(),
+	penghasilan_sendiri: text('penghasilan_sendiri', {
+		enum: ['yes', 'no'],
+	}).notNull(),
 	tertarik_investasi: text('tertarik_investasi', {
 		enum: ['yes', 'maybe', 'no'],
 	}).notNull(),

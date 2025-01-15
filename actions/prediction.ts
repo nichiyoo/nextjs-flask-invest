@@ -2,12 +2,13 @@
 
 import { eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 import db from '@/lib/drizzle';
 import * as schema from '@/database/schema';
+
 import { getCurrentSession } from '@/lib/session';
 import { surveySchema, FormValues } from '@/lib/survey';
-import { revalidatePath } from 'next/cache';
 
 export async function predict(data: FormValues) {
 	const { user } = await getCurrentSession();
@@ -35,9 +36,7 @@ export async function predict(data: FormValues) {
 	);
 
 	if (!response.ok) throw new Error('Gagal terhubung ke API');
-
 	const json = await response.json();
-	console.log(json);
 
 	await db.insert(schema.prediksi).values({
 		...validated,

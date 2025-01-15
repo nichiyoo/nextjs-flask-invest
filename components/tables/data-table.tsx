@@ -46,6 +46,7 @@ export function DataTable<TData, TValue>({
 		risiko: false,
 		tahu_investasi: false,
 		sudah_investasi: false,
+		penghasilan_sendiri: false,
 	});
 
 	const table = useReactTable({

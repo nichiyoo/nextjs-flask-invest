@@ -44,27 +44,9 @@ export const PredictionForm: React.FC = () => {
 			risiko: undefined,
 			tahu_investasi: undefined,
 			sudah_investasi: undefined,
+			penghasilan_sendiri: undefined,
 		},
 	});
-
-	React.useEffect(() => {
-		if (process.env.NODE_ENV === 'development') {
-			form.setValue('usia', 25);
-			form.setValue('jenis_kelamin', 'male');
-			form.setValue('uang_bulanan', 5000000);
-			form.setValue('ekonomi_mendukung', '5');
-			form.setValue('penghasilan_cukup', '4');
-			form.setValue('tujuan_jangka_panjang', '4');
-			form.setValue('penghasilan_tambahan', '5');
-			form.setValue('meningkatkan_kekayaan', '3');
-			form.setValue('literasi_keuangan', '4');
-			form.setValue('kemudahan_platform', '3');
-			form.setValue('keuntungan', '5');
-			form.setValue('risiko', '5');
-			form.setValue('tahu_investasi', 'yes');
-			form.setValue('sudah_investasi', 'yes');
-		}
-	}, [form]);
 
 	const handleReset = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
@@ -113,7 +95,7 @@ export const PredictionForm: React.FC = () => {
 											<FormItem>
 												<FormLabel>{item.label}</FormLabel>
 												<FormControl>
-													{item.options ? (
+													{item.type === 'radio' ? (
 														<RadioGroup onValueChange={field.onChange}>
 															{item.options.map((option, index) => (
 																<FormItem key={index}>

@@ -43,8 +43,8 @@ gender_mapper = {
 
 boolean_mapper = {
     "no": 0,
-    "maybe": 1,
-    "yes": 2,
+    "yes": 1,
+    "maybe": 2,
 }
 
 @app.route("/api/_healthcheck")
@@ -56,6 +56,7 @@ def predict():
     data = request.get_json()
 
     df = pd.DataFrame(data=data, index=[0])
+    df = df.drop(columns=[col for col in df.columns if col not in columns])
     df = df.reindex(columns=columns)
 
     df["jenis_kelamin"] = df["jenis_kelamin"].replace(gender_mapper)
@@ -66,9 +67,10 @@ def predict():
         df[col] = df[col].apply(pd.to_numeric, errors="ignore")
 
     df["uang_bulanan"] = scaler.transform(df["uang_bulanan"].values.reshape(-1, 1))
-    df = df.drop(["keuntungan", "jenis_kelamin"], axis=1)
-    
+    df = df.drop(["jenis_kelamin"], axis=1)
+  
     pred = model.predict(df)
+    print(pred)
     index = pred[0]
 
     prediction = {

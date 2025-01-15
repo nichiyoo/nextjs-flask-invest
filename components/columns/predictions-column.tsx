@@ -17,20 +17,28 @@ type TableData = Prediksi & {
 export const columns: ColumnDef<TableData>[] = [
 	{
 		accessorKey: 'prediksi_id',
-		header: ({ column }) => <DataTableColumnHeader column={column} title='ID' />,
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title='ID' />
+		),
 	},
 	{
 		accessorKey: 'user.nama',
-		header: ({ column }) => <DataTableColumnHeader column={column} title='Nama' />,
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title='Nama' />
+		),
 		cell: ({ row }) => {
 			return (
 				<div className='flex items-center gap-4'>
 					<Avatar>
-						<AvatarFallback>{formatInitial(row.original.user.nama)}</AvatarFallback>
+						<AvatarFallback>
+							{formatInitial(row.original.user.nama)}
+						</AvatarFallback>
 					</Avatar>
 					<div className='flex flex-col'>
 						<span>{row.original.user.nama}</span>
-						<span className='text-xs text-muted-foreground'>{row.original.user.email}</span>
+						<span className='text-xs text-muted-foreground'>
+							{row.original.user.email}
+						</span>
 					</div>
 				</div>
 			);
@@ -39,21 +47,38 @@ export const columns: ColumnDef<TableData>[] = [
 	{
 		id: 'Jurusan',
 		accessorKey: 'user.jurusan.nama',
-		header: ({ column }) => <DataTableColumnHeader column={column} title='Jurusan' />,
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title='Jurusan' />
+		),
 	},
 	{
 		accessorKey: 'usia',
-		header: ({ column }) => <DataTableColumnHeader column={column} title='Usia' />,
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title='Usia' />
+		),
 	},
 	{
 		accessorKey: 'jenis_kelamin',
 		header: 'Jenis Kelamin',
-		cell: ({ row }) => <Badge>{row.original.jenis_kelamin === 'male' ? 'Laki-laki' : 'Perempuan'}</Badge>,
+		cell: ({ row }) => (
+			<Badge>
+				{row.original.jenis_kelamin === 'male' ? 'Laki-laki' : 'Perempuan'}
+			</Badge>
+		),
 	},
 	{
 		accessorKey: 'uang_bulanan',
-		header: ({ column }) => <DataTableColumnHeader column={column} title='Uang Bulanan' />,
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title='Uang Bulanan' />
+		),
 		cell: ({ row }) => formatCurrency(row.original.uang_bulanan),
+	},
+	{
+		accessorKey: 'penghasilan_sendiri',
+		header: 'Penghasilan Sendiri',
+		cell: ({ row }) => (
+			<Badge>{mapper[row.original.penghasilan_sendiri]}</Badge>
+		),
 	},
 	{
 		accessorKey: 'ekonomi_mendukung',
@@ -106,7 +131,6 @@ export const columns: ColumnDef<TableData>[] = [
 		header: 'Tertarik Investasi',
 		cell: ({ row }) => <Badge>{mapper[row.original.tertarik_investasi]}</Badge>,
 	},
-
 	{
 		id: 'actions',
 		cell: ({ row }) => {

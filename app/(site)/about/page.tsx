@@ -1,5 +1,5 @@
-import { Header, HeaderTitle } from '@/components/header';
 import * as React from 'react';
+import { Header, HeaderTitle } from '@/components/header';
 
 export default async function Page(): Promise<React.JSX.Element> {
 	return (
