@@ -38,14 +38,18 @@ export const ProfileButton: React.FC<SignoutButtonProps> = ({ user }) => {
 		<DropdownMenu>
 			<DropdownMenuTrigger className='flex items-center gap-2'>
 				<Avatar>
-					<AvatarFallback className='bg-primary text-black'>{formatInitial(user.nama)}</AvatarFallback>
+					<AvatarFallback className='bg-primary text-primary-foreground'>
+						{formatInitial(user.nama)}
+					</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='w-56' align='end' forceMount>
 				<DropdownMenuLabel>
 					<div className='flex flex-col gap-1'>
 						<span className='text-sm font-medium'>{user.nama}</span>
-						<span className='text-xs text-muted-foreground truncate'>{user.email}</span>
+						<span className='text-xs text-muted-foreground truncate'>
+							{user.email}
+						</span>
 					</div>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />

@@ -3,12 +3,10 @@
 import * as React from 'react';
 import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { sections } from '@/lib/constant';
 import { useToast } from '@/hooks/use-toast';
-import { FormValues, formSchema } from '@/lib/schema';
+import { FormValues, surveySchema, surveySection } from '@/lib/survey';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -30,7 +28,7 @@ export const PredictionForm: React.FC = () => {
 	const [loading, setLoading] = React.useState(false);
 
 	const form = useForm<FormValues>({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(surveySchema),
 		defaultValues: {
 			usia: 0,
 			jenis_kelamin: undefined,
@@ -86,10 +84,10 @@ export const PredictionForm: React.FC = () => {
 				title: 'Berhasil',
 				description: 'Prediksi minat berinvestasi  sudah dikirimkan',
 			});
-		} catch (error: any) {
+		} catch (error) {
 			toast({
 				title: 'Error',
-				description: error.message,
+				description: (error as Error).message,
 			});
 		} finally {
 			setLoading(false);
@@ -100,7 +98,7 @@ export const PredictionForm: React.FC = () => {
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)}>
 				<div className='grid gap-6'>
-					{sections.map((section) => (
+					{surveySection.map((section) => (
 						<Card key={section.title} className='bg-card'>
 							<CardHeader>
 								<CardTitle>{section.title}</CardTitle>

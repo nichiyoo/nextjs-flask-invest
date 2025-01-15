@@ -1,5 +1,5 @@
 import { Row } from '@tanstack/react-table';
-import { PencilLine, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import useConfirm from '@/hooks/use-confirm';
@@ -30,10 +30,10 @@ export const UserAction: React.FC<TableActionsProps> = ({ row }) => {
 						title: 'Success',
 						description: 'Pengguna berhasil dihapus.',
 					});
-				} catch (error: any) {
+				} catch (error) {
 					toast({
 						title: 'Gagal menghapus pengguna',
-						description: error.message,
+						description: (error as Error).message,
 					});
 				}
 			})

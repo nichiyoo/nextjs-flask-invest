@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import db from '@/lib/drizzle';
 import * as schema from '@/database/schema';
 import { getCurrentSession } from '@/lib/session';
-import { formSchema, FormValues } from '@/lib/schema';
+import { surveySchema, FormValues } from '@/lib/survey';
 import { revalidatePath } from 'next/cache';
 
 export async function predict(data: FormValues) {
@@ -18,7 +18,7 @@ export async function predict(data: FormValues) {
 	});
 	if (prediksi) throw Error('Anda sudah melakukan prediksi minat berinvestasi');
 
-	const { data: validated, success, error } = formSchema.safeParse(data);
+	const { data: validated, success, error } = surveySchema.safeParse(data);
 	if (!success) throw Error(error.message);
 
 	const response = await fetch(

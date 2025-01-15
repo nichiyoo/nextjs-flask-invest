@@ -45,10 +45,10 @@ export const LoginForm: React.FC = () => {
 				title: 'Berhasil masuk',
 				description: 'Anda telah berhasil masuk.',
 			});
-		} catch (error: any) {
+		} catch (error) {
 			toast({
 				title: 'Gagal masuk ke akun',
-				description: error.message,
+				description: (error as Error).message,
 			});
 		}
 	};

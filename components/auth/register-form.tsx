@@ -66,10 +66,10 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ listJurusan }) => {
 				title: 'Berhasil mendaftar',
 				description: 'Anda telah berhasil mendaftar.',
 			});
-		} catch (error: any) {
+		} catch (error) {
 			toast({
 				title: 'Gagal mendaftar',
-				description: error.message,
+				description: (error as Error).message,
 			});
 		}
 	};

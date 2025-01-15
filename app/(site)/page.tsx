@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FlaskConical, NotepadText } from 'lucide-react';
+import { FlaskConical } from 'lucide-react';
 
 import { features } from '@/lib/constant';
 import { Button } from '@/components/ui/button';
@@ -12,8 +12,8 @@ export default async function Home() {
 		<div className='grid gap-8'>
 			<Header className='py-32'>
 				<HeaderTitle>
-					Prediksi Minat Mahasiswa Dalam{' '}
-					<span className='text-primary'>Berinvestasi di Pasar Modal</span>{' '}
+					Prediksi Minat Mahasiswa Dalam
+					<span className='text-primary px-2'>Berinvestasi di Pasar Modal</span>
 					menggunakan Machine Learning
 				</HeaderTitle>
 
@@ -29,13 +29,6 @@ export default async function Home() {
 						<Button>
 							<FlaskConical />
 							<span>Prediksi Minat</span>
-						</Button>
-					</Link>
-
-					<Link href='/about'>
-						<Button variant='secondary'>
-							<NotepadText />
-							<span>Baca Publikasi</span>
 						</Button>
 					</Link>
 				</ButtonGroup>

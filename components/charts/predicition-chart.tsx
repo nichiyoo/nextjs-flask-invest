@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { Bar, BarChart, XAxis, YAxis } from 'recharts';
-import { TrendingUp, TrendingDown } from 'lucide-react';
 
 import {
 	Card,
@@ -109,17 +108,10 @@ export function PredictionCharts({
 		}));
 	}, [predictions, faculties, config]);
 
-	const getTrend = (data: { count: number }[]) => {
-		const total = data.reduce((sum, item) => sum + item.count, 0);
-		const average = total / data.length;
-		const last = data[data.length - 1].count;
-		return last > average ? 'up' : 'down';
-	};
-
 	const titles = {
-		no: 'Tidak Tertarik',
-		yes: 'Tertarik',
-		maybe: 'Mungkin Tertarik',
+		no: 'Tidak Berminat',
+		yes: 'Berminat',
+		maybe: 'Mungkin Berminat',
 	};
 
 	return (
@@ -161,23 +153,9 @@ export function PredictionCharts({
 					</CardContent>
 					<CardFooter className='flex-col items-start'>
 						{data.some((item) => item.count > 0) ? (
-							<React.Fragment>
-								<div className='flex items-center gap-2'>
-									{getTrend(data) === 'up' ? (
-										<React.Fragment>
-											Trending up <TrendingUp className='size-4 text-primary' />
-										</React.Fragment>
-									) : (
-										<React.Fragment>
-											Trending down{' '}
-											<TrendingDown className='size-4 text-primary' />
-										</React.Fragment>
-									)}
-								</div>
-								<span className='text-sm text-muted-foreground'>
-									Menampilkan jumlah mahasiswa tiap fakultas
-								</span>
-							</React.Fragment>
+							<span className='text-sm text-muted-foreground'>
+								Menampilkan jumlah mahasiswa tiap fakultas
+							</span>
 						) : (
 							<span className='text-sm text-muted-foreground'>
 								Belum ada data pada kategori ini

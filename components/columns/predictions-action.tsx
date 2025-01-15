@@ -30,10 +30,10 @@ export const PredictionAction: React.FC<TableActionsProps> = ({ row }) => {
 						title: 'Success',
 						description: 'Prediksi berhasil dihapus.',
 					});
-				} catch (error: any) {
+				} catch (error) {
 					toast({
 						title: 'Gagal menghapus prediksi',
-						description: error.message,
+						description: (error as Error).message,
 					});
 				}
 			})

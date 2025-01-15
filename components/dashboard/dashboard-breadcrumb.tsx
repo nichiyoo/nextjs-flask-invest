@@ -12,13 +12,7 @@ import {
 import { usePathname } from 'next/navigation';
 import { formatTitle } from '@/lib/utils';
 
-interface DashboardBreadcrumbProps {
-	//
-}
-
-export const DashboardBreadcrumb: React.FC<DashboardBreadcrumbProps> = ({
-	...props
-}) => {
+export const DashboardBreadcrumb: React.FC = () => {
 	const pathname = usePathname();
 	const breadcrumbs = pathname.split('/').filter((item) => item);
 

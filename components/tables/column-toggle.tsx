@@ -13,6 +13,7 @@ import {
 	DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { formatTitle } from '@/lib/utils';
+import React from 'react';
 
 interface DataTableViewOptionsProps<TData> {
 	table: Table<TData>;
@@ -44,6 +45,7 @@ export function DataTableViewOptions<TData>({
 								key={column.id}
 								className='capitalize'
 								checked={column.getIsVisible()}
+								onSelect={(e) => e.preventDefault()}
 								onCheckedChange={(value) => column.toggleVisibility(!!value)}>
 								{formatTitle(column.id)}
 							</DropdownMenuCheckboxItem>
