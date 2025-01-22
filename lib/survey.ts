@@ -28,6 +28,7 @@ export const agreements = [
 
 export const surveySchema = z.object({
 	usia: z.coerce.number().min(15),
+	semester: z.coerce.number().min(1).max(16),
 	jenis_kelamin: z.enum(['male', 'female']),
 	uang_bulanan: z.coerce.number().min(100000),
 	ekonomi_mendukung: z.enum(scale),
@@ -69,13 +70,13 @@ type Field = {
 	>;
 };
 
-export const surveySection: Field[] = [
+export const survey: Field[] = [
 	{
 		title: 'Demografi',
 		fields: [
 			{
-				name: 'usia',
-				label: 'Usia',
+				name: 'semester',
+				label: 'Semester',
 				type: 'number',
 			},
 			{
@@ -86,6 +87,11 @@ export const surveySection: Field[] = [
 					{ value: 'male', label: 'Laki-laki' },
 					{ value: 'female', label: 'Perempuan' },
 				],
+			},
+			{
+				name: 'usia',
+				label: 'Usia',
+				type: 'number',
 			},
 		],
 	},

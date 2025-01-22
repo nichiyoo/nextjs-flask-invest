@@ -12,14 +12,9 @@ import { surveySchema, FormValues } from '@/lib/survey';
 
 export async function predict(data: FormValues) {
 	const { user } = await getCurrentSession();
-	if (!user) redirect('/auth/login');
+	if (!user) return redirect('/auth/login');
 
-	const prediksi = await db.query.prediksi.findFirst({
-		where: eq(schema.prediksi.user_id, user.user_id),
-	});
-	if (prediksi) throw Error('Anda sudah melakukan prediksi minat berinvestasi');
-
-	const { data: validated, success, error } = surveySchema.safeParse(data);
+	const { data: result, success, error } = surveySchema.safeParse(data);
 	if (!success) throw Error(error.message);
 
 	const response = await fetch(
@@ -31,26 +26,29 @@ export async function predict(data: FormValues) {
 				Origin: 'http://localhost:3000',
 				Host: 'localhost',
 			},
-			body: JSON.stringify(validated),
+			body: JSON.stringify(result),
 		}
 	);
 
 	if (!response.ok) throw new Error('Gagal terhubung ke API');
 	const json = await response.json();
 
-	await db.insert(schema.prediksi).values({
-		...validated,
-		user_id: user.user_id,
-		tertarik_investasi: json.result as 'no' | 'yes' | 'maybe',
-	} as schema.insertPrediksi);
+	const [prediksi] = await db
+		.insert(schema.prediksi)
+		.values({
+			...result,
+			user_id: user.user_id,
+			tertarik_investasi: json.result as 'no' | 'yes' | 'maybe',
+		} as schema.insertPrediksi)
+		.returning();
 
-	redirect('/result');
+	redirect('/result/' + prediksi.prediksi_id);
 }
 
 export const remove = async (prediksi_id: number) => {
 	const { user } = await getCurrentSession();
 
-	if (!user) redirect('/auth/login');
+	if (!user) return redirect('/auth/login');
 	if (user.role !== 'admin') throw Error('Anda tidak dapat menghapus prediksi');
 
 	const found = await db.query.prediksi.findFirst({

@@ -1,0 +1,1 @@
+DROP INDEX `prediksi_user_id_unique`;

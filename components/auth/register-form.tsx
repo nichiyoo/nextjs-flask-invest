@@ -30,6 +30,7 @@ import {
 } from '@/components/ui/select';
 
 const schema = z.object({
+	nim: z.string().min(6),
 	nama: z.string().min(3),
 	email: z.string().email(),
 	password: z.string().min(8),
@@ -52,6 +53,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ listJurusan }) => {
 	const form = useForm<RegisterType>({
 		resolver: zodResolver(schema),
 		defaultValues: {
+			nim: '',
 			nama: '',
 			email: '',
 			password: '',
@@ -86,6 +88,20 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ listJurusan }) => {
 								<FormLabel>Nama</FormLabel>
 								<FormControl>
 									<Input placeholder='Masukkan nama' {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+
+					<FormField
+						control={form.control}
+						name='nim'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>NIM</FormLabel>
+								<FormControl>
+									<Input placeholder='Masukkan NIM' {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>

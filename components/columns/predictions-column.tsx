@@ -7,6 +7,7 @@ import { Jurusan, Prediksi, User } from '@/database/schema';
 import { DataTableColumnHeader } from '@/components/tables/column-header';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { PredictionAction } from '@/components/columns/predictions-action';
+import { PredictionView } from './predictions-view';
 
 type TableData = Prediksi & {
 	user: User & {
@@ -14,7 +15,7 @@ type TableData = Prediksi & {
 	};
 };
 
-export const columns: ColumnDef<TableData>[] = [
+export const common: ColumnDef<TableData>[] = [
 	{
 		accessorKey: 'prediksi_id',
 		header: ({ column }) => (
@@ -55,6 +56,12 @@ export const columns: ColumnDef<TableData>[] = [
 		accessorKey: 'usia',
 		header: ({ column }) => (
 			<DataTableColumnHeader column={column} title='Usia' />
+		),
+	},
+	{
+		accessorKey: 'semester',
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title='Semester' />
 		),
 	},
 	{
@@ -131,10 +138,33 @@ export const columns: ColumnDef<TableData>[] = [
 		header: 'Tertarik Investasi',
 		cell: ({ row }) => <Badge>{mapper[row.original.tertarik_investasi]}</Badge>,
 	},
+];
+
+export const user: ColumnDef<TableData>[] = [
+	...common,
+	{
+		id: 'view',
+		cell: ({ row }) => {
+			return (
+				<div className='flex items-center gap-2'>
+					<PredictionView row={row} />
+				</div>
+			);
+		},
+	},
+];
+
+export const admin: ColumnDef<TableData>[] = [
+	...common,
 	{
 		id: 'actions',
 		cell: ({ row }) => {
-			return <PredictionAction row={row} />;
+			return (
+				<div className='flex items-center gap-2'>
+					<PredictionView row={row} />
+					<PredictionAction row={row} />
+				</div>
+			);
 		},
 	},
 ];

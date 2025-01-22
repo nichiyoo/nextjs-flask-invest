@@ -1,21 +1,24 @@
 import * as React from 'react';
-import { getCurrentSession } from '@/lib/session';
-import { redirect } from 'next/navigation';
 
 import { DashboardSidebar } from '@/components/dashboard/dashboard-sidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import DashboardNavbar from '@/components/dashboard/dashboard-navbar';
 import { ConfirmProvider } from '@/context/confirm-context';
+import { sidebar } from '@/lib/constant';
+import { getCurrentSession } from '@/lib/session';
+import { redirect } from 'next/navigation';
 
 export default async function Layout({
 	children,
 }: React.PropsWithChildren): Promise<React.JSX.Element> {
 	const { user } = await getCurrentSession();
-	if (!user || user.role !== 'admin') redirect('/');
+
+	if (!user) return redirect('/auth/login');
+	if (user.role === 'admin') return redirect('/dashboard/admin');
 
 	return (
 		<SidebarProvider>
-			<DashboardSidebar />
+			<DashboardSidebar menus={sidebar.user} />
 			<SidebarInset>
 				<DashboardNavbar />
 				<ConfirmProvider>

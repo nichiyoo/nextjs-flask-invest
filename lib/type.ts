@@ -12,3 +12,5 @@ export type Menu = {
 		}
 	>;
 };
+
+export type RiskProfile = 'Konservatif' | 'Moderat' | 'Agresif';

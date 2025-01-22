@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Header, HeaderDescription, HeaderTitle } from '@/components/header';
-import { side } from '@/lib/constant';
+import { sidebar } from '@/lib/constant';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default async function Page(): Promise<React.JSX.Element> {
-	const submenus = side.flatMap((item) => item.submenu ?? []);
+	const submenus = sidebar.user.flatMap((item) => item.submenu ?? []);
 
 	return (
 		<div className='grid gap-8'>

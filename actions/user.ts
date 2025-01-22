@@ -10,7 +10,7 @@ import { getCurrentSession } from '@/lib/session';
 export const remove = async (user_id: number) => {
 	const { user } = await getCurrentSession();
 
-	if (!user) redirect('/auth/login');
+	if (!user) return redirect('/auth/login');
 	if (user.role !== 'admin') throw Error('Anda tidak dapat menghapus user');
 
 	const found = await db.query.user.findFirst({

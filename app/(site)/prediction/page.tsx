@@ -1,22 +1,29 @@
 import * as React from 'react';
-import * as schema from '@/database/schema';
 import { redirect } from 'next/navigation';
-
-import db from '@/lib/drizzle';
-import { eq } from 'drizzle-orm';
 
 import { getCurrentSession } from '@/lib/session';
 import { PredictionForm } from '@/components/prediction/prediction-form';
 import { Header, HeaderDescription, HeaderTitle } from '@/components/header';
+import db from '@/lib/drizzle';
+import * as schema from '@/database/schema';
+import { eq } from 'drizzle-orm';
 
 export default async function Page(): Promise<React.JSX.Element> {
-	const { user } = await getCurrentSession();
-	if (user === null) return redirect('/auth/login');
+	const { user: session } = await getCurrentSession();
+	if (session === null) return redirect('/auth/login');
 
-	const prediction = await db.query.prediksi.findFirst({
-		where: eq(schema.prediksi.user_id, user.user_id),
+	const user = await db.query.user.findFirst({
+		where: eq(schema.user.user_id, session.user_id),
+		with: {
+			jurusan: {
+				with: {
+					fakultas: true,
+				},
+			},
+		},
 	});
-	if (prediction) return redirect('/result');
+
+	if (!user) throw new Error('Data user yang terauthentikasi tidak ditemukan');
 
 	return (
 		<div className='grid gap-8'>
@@ -27,7 +34,7 @@ export default async function Page(): Promise<React.JSX.Element> {
 					pasar modal.
 				</HeaderDescription>
 			</Header>
-			<PredictionForm />
+			<PredictionForm user={user} />
 		</div>
 	);
 }

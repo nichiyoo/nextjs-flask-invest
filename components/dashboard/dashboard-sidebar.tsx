@@ -21,11 +21,13 @@ import {
 
 import { Logo } from '@/components/logo';
 import Link from 'next/link';
-import { side } from '@/lib/constant';
+import { Menu } from '@/lib/type';
 
-export function DashboardSidebar({
-	...props
-}: React.ComponentProps<typeof Sidebar>) {
+interface DashboardSidebarProps extends React.ComponentProps<typeof Sidebar> {
+	menus: Array<Menu>;
+}
+
+export function DashboardSidebar({ menus, ...props }: DashboardSidebarProps) {
 	return (
 		<Sidebar {...props}>
 			<SidebarHeader>
@@ -34,7 +36,7 @@ export function DashboardSidebar({
 				</div>
 			</SidebarHeader>
 			<SidebarContent className='gap-0 scrollbar-none'>
-				{side.map((item) => (
+				{menus.map((item) => (
 					<Collapsible
 						defaultOpen
 						key={item.title}

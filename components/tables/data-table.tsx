@@ -35,6 +35,7 @@ export function DataTable<TData, TValue>({
 	children,
 }: DataTableProps<TData, TValue>) {
 	const [visible, setVisible] = React.useState<VisibilityState>({
+		semester: false,
 		ekonomi_mendukung: false,
 		penghasilan_cukup: false,
 		tujuan_jangka_panjang: false,

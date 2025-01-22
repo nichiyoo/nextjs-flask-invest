@@ -1,7 +1,7 @@
 'use server';
 
 import * as z from 'zod';
-import { eq } from 'drizzle-orm';
+import { eq, or } from 'drizzle-orm';
 import * as schema from '@/database/schema';
 
 import db from '@/lib/drizzle';
@@ -51,11 +51,13 @@ export async function signin({
 }
 
 export async function signup({
+	nim,
 	nama,
 	email,
 	password,
 	jurusan_id,
 }: {
+	nim: string;
 	nama: string;
 	email: string;
 	password: string;
@@ -63,12 +65,14 @@ export async function signup({
 }) {
 	const { data: result, error } = z
 		.object({
+			nim: z.string().min(6),
 			nama: z.string().min(3),
 			email: z.string().email(),
 			password: z.string().min(8),
 			jurusan_id: z.coerce.number(),
 		})
 		.safeParse({
+			nim,
 			nama,
 			email,
 			password,
@@ -83,14 +87,18 @@ export async function signup({
 	if (!jurusan) throw Error('Fakultas tidak ditemukan');
 
 	const duplicate = await db.query.user.findFirst({
-		where: eq(schema.user.email, result.email),
+		where: or(
+			eq(schema.user.email, result.email),
+			eq(schema.user.nim, result.nim)
+		),
 	});
-	if (duplicate) throw Error('Email sudah digunakan');
+	if (duplicate) throw Error('Email atau NIM sudah terdaftar');
 
 	const hashed = await hashPassword(result.password);
 	const [user] = await db
 		.insert(schema.user)
 		.values({
+			nim: result.nim,
 			nama: result.nama,
 			email: result.email,
 			password: hashed,

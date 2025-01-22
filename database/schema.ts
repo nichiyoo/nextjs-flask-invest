@@ -22,6 +22,7 @@ export const jurusan = sqliteTable('jurusan', {
 
 export const user = sqliteTable('user', {
 	user_id: integer('user_id').primaryKey(),
+	nim: text('nim').unique().notNull(),
 	nama: text('nama').notNull(),
 	email: text('email').unique(),
 	password: text('password').notNull(),
@@ -35,8 +36,8 @@ export const prediksi = sqliteTable('prediksi', {
 	prediksi_id: integer('prediksi_id').primaryKey(),
 	user_id: integer('user_id')
 		.notNull()
-		.unique()
 		.references(() => user.user_id, { onDelete: 'cascade' }),
+	semester: integer('semester').notNull(),
 	usia: integer('usia').notNull(),
 	jenis_kelamin: text('jenis_kelamin', { enum: ['male', 'female'] }).notNull(),
 	uang_bulanan: integer('uang_bulanan').notNull(),

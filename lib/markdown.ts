@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs/promises';
-
 import { marked } from 'marked';
+import { RiskProfile } from '@/lib/type';
 
 export const folder = path.join(process.cwd(), 'docs');
 
@@ -24,7 +24,14 @@ export const getDocuments = async (): Promise<Record<Filenames, string>> => {
 	return result;
 };
 
-export const getDocumentArray = async () => {
+export const getDocumentArray = async (): Promise<
+	Array<{
+		label: string;
+		value: string;
+		description: string;
+		risk: RiskProfile[];
+	}>
+> => {
 	const documents = await getDocuments();
 
 	return [
@@ -32,21 +39,25 @@ export const getDocumentArray = async () => {
 			label: 'Reksa Dana Pasar Uang',
 			value: 'reksadana-pasar-uang',
 			description: documents['reksadana-pasar-uang.md'] ?? '',
+			risk: ['Konservatif'],
 		},
 		{
 			label: 'Reksa Dana Pendapatan Tetap',
 			value: 'reksadana-pendapatan-tetap',
 			description: documents['reksadana-pendapatan-tetap.md'] ?? '',
+			risk: ['Moderat'],
 		},
 		{
 			label: 'Reksa Dana Campuran',
 			value: 'reksadana-campuran',
 			description: documents['reksadana-campuran.md'] ?? '',
+			risk: ['Moderat'],
 		},
 		{
 			label: 'Reksa Dana Saham',
 			value: 'reksadana-saham',
 			description: documents['reksadana-saham.md'] ?? '',
+			risk: ['Agresif'],
 		},
 	];
 };

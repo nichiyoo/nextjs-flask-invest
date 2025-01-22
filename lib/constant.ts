@@ -44,47 +44,73 @@ export const menus: Array<Menu> = [
 	},
 ];
 
-export const side: Array<Menu> = [
+const admin: Array<Menu> = [
 	{
 		href: '#',
 		title: 'Dashboard',
 		submenu: [
 			{
-				icon: ChartBarBig,
-				title: 'Statistik',
-				href: '/dashboard/statistics',
-				description: 'Statistik data prediksi minat investasi mahasiswa',
-			},
-			{
 				icon: Layout,
 				title: 'Menu Overview',
-				href: '/dashboard',
+				href: '/dashboard/admin',
 				description: 'Navigasi menu yang tersedia pada dashboard.',
+			},
+			{
+				icon: ChartBarBig,
+				title: 'Statistik',
+				href: '/dashboard/admin/statistics',
+				description: 'Statistik data prediksi minat investasi mahasiswa',
 			},
 			{
 				icon: FlaskConical,
 				title: 'Data Prediksi',
-				href: '/dashboard/predictions',
+				href: '/dashboard/admin/predictions',
 				description: 'Kelola data prediksi minat investasi mahasiswa',
 			},
 			{
 				icon: Users2,
 				title: 'Data Pengguna',
-				href: '/dashboard/users',
+				href: '/dashboard/admin/users',
 				description: 'Kelola data pengguna yang bergabung dengan sistem',
 			},
 			{
 				icon: Building2,
 				title: 'Data Fakultas',
-				href: '/dashboard/faculty',
+				href: '/dashboard/admin/faculty',
 				description: 'Kelola data fakultas yang bergabung dengan sistem',
 			},
 			{
 				icon: GraduationCap,
 				title: 'Data Jurusan',
-				href: '/dashboard/major',
+				href: '/dashboard/admin/major',
 				description: 'Kelola data jurusan yang bergabung dengan sistem',
 			},
 		],
 	},
 ];
+
+const user: Array<Menu> = [
+	{
+		href: '#',
+		title: 'Dashboard',
+		submenu: [
+			{
+				icon: Layout,
+				title: 'Menu Overview',
+				href: '/dashboard/user',
+				description: 'Navigasi menu yang tersedia pada dashboard.',
+			},
+			{
+				icon: FlaskConical,
+				title: 'Data Prediksi',
+				href: '/dashboard/user/predictions',
+				description: 'Kelola data prediksi minat investasi mahasiswa',
+			},
+		],
+	},
+];
+
+export const sidebar = {
+	admin,
+	user,
+};

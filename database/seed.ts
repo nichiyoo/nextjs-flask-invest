@@ -59,6 +59,7 @@ async function main() {
 
 	const userData: schema.insertUser[] = [
 		{
+			nim: '000000',
 			nama: 'Administrator',
 			email: 'admin@example.com',
 			password: await hashPassword('password'),
@@ -72,6 +73,7 @@ async function main() {
 		return {
 			user: {
 				columns: {
+					nim: fake.int({ minValue: 111111, maxValue: 999999 }),
 					nama: fake.fullName(),
 					jurusan_id: fake.int({ minValue: 1, maxValue: jurusanData.length }),
 					role: fake.default({ defaultValue: 'user' }),

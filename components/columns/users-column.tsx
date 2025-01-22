@@ -20,11 +20,21 @@ type TableData = User & {
 export const columns: ColumnDef<TableData>[] = [
 	{
 		accessorKey: 'user_id',
-		header: ({ column }) => <DataTableColumnHeader column={column} title='ID' />,
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title='ID' />
+		),
+	},
+	{
+		accessorKey: 'nim',
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title='NIM' />
+		),
 	},
 	{
 		accessorKey: 'nama',
-		header: ({ column }) => <DataTableColumnHeader column={column} title='Nama' />,
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title='Nama' />
+		),
 		cell: ({ row }) => {
 			return (
 				<div className='flex items-center gap-4'>
@@ -33,7 +43,9 @@ export const columns: ColumnDef<TableData>[] = [
 					</Avatar>
 					<div className='flex flex-col'>
 						<span>{row.original.nama}</span>
-						<span className='text-xs text-muted-foreground'>{row.original.email}</span>
+						<span className='text-xs text-muted-foreground'>
+							{row.original.email}
+						</span>
 					</div>
 				</div>
 			);
@@ -42,19 +54,33 @@ export const columns: ColumnDef<TableData>[] = [
 	{
 		id: 'Jurusan',
 		accessorKey: 'jurusan.nama',
-		header: ({ column }) => <DataTableColumnHeader column={column} title='Jurusan' />,
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title='Jurusan' />
+		),
 	},
 	{
 		id: 'fakultas',
 		accessorKey: 'jurusan.fakultas.nama',
-		header: ({ column }) => <DataTableColumnHeader column={column} title='Fakultas' />,
-		cell: ({ row }) => <Badge>{row.original.jurusan?.fakultas.nama}</Badge>,
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title='Fakultas' />
+		),
+		cell: ({ row }) => {
+			if (!row.original.jurusan) return null;
+			return <Badge>{row.original.jurusan?.fakultas.nama}</Badge>;
+		},
 	},
 	{
 		accessorKey: 'role',
-		header: ({ column }) => <DataTableColumnHeader column={column} title='Role' />,
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title='Role' />
+		),
 		cell: ({ row }) => {
-			return <Badge variant={row.original.role === 'admin' ? 'default' : 'secondary'}>{row.original.role}</Badge>;
+			return (
+				<Badge
+					variant={row.original.role === 'admin' ? 'default' : 'secondary'}>
+					{row.original.role}
+				</Badge>
+			);
 		},
 	},
 	{

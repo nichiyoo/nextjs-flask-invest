@@ -50,7 +50,7 @@ export const Navbar = async () => {
 							);
 						})}
 
-						{user && user.role === 'admin' && (
+						{user && (
 							<NavigationMenuItem>
 								<Link href='/dashboard'>
 									<Button variant='ghost'>Dashboard</Button>

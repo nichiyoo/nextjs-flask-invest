@@ -58,13 +58,11 @@ export const ProfileButton: React.FC<SignoutButtonProps> = ({ user }) => {
 						<DropdownMenuItem>Home</DropdownMenuItem>
 					</Link>
 				</DropdownMenuGroup>
-				{user.role === 'admin' && (
-					<DropdownMenuGroup>
-						<Link href='/dashboard'>
-							<DropdownMenuItem>Dashboard</DropdownMenuItem>
-						</Link>
-					</DropdownMenuGroup>
-				)}
+				<DropdownMenuGroup>
+					<Link href='/dashboard'>
+						<DropdownMenuItem>Dashboard</DropdownMenuItem>
+					</Link>
+				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
 			</DropdownMenuContent>

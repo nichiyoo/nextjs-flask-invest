@@ -29,6 +29,20 @@
       "when": 1736936602615,
       "tag": "0003_add_column_pengasilan_sendiri_in_table_prediksi",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1737567211573,
+      "tag": "0004_add_column_nim_and_semester",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1737570185002,
+      "tag": "0005_remove_unique_contraint_from_user_id_in_table_prediksi",
+      "breakpoints": true
     }
   ]
 }
